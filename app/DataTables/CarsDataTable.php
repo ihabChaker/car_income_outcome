@@ -24,8 +24,14 @@ class CarsDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('net_gain', function ($data) {
                 return $data->selling_price - ($data->buy_price + $data->electricity + $data->mechanism + $data->tole);
+            })->addColumn('delete', function ($data) {
+                return '<a  class="btn btn-danger delete-record" onClick="sendDeleteRequest(\'' . route('cars.destroy', $data->id) . '\')"><i class="fas fa-trash"></i></a>';
             })
-        ;
+            ->addColumn('update', function ($data) {
+                return '<a href="#" data-toggle="modal" data-target="#edit-modal" data-id="' . $data->id . '" data-name="' . $data->name . '" data-license_plate="' . $data->license_plate . '" data-buy_price="' . $data->buy_price . '"  data-repair_parts="' . $data->repair_parts . '"  data-mechanism="' . $data->mechanism . '" data-tole="' . $data->tole . '" data-electricity="' . $data->electricity . '" data-selling_price="' . $data->selling_price . '" class="btn btn-xs btn-primary edit-btn"><i class="fas fa-pen"></i></a>';
+            })
+
+            ->rawColumns(['delete', 'update',]);
     }
 
     /**
@@ -42,7 +48,7 @@ class CarsDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('cars-table')
+            ->setTableId('data-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -64,16 +70,25 @@ class CarsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-
-            Column::make('name')->title('السيارة'),
-            Column::make('license_plate')->title('لوحة الترقيم'),
-            Column::make('buy_price')->title('سعر الشراء'),
+            Column::computed('delete')->title('حذف')
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->addClass('text-center'),
+            Column::computed('update')->title('تعديل')
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->addClass('text-center'),
+            Column::make('net_gain')->title('الفائدة'),
+            Column::make('selling_price')->title('سعر البيع'),
             Column::make('repair_parts')->title('قطع الغيار'),
             Column::make('mechanism')->title('ميكانيك'),
             Column::make('electricity')->title('كهرباء'),
             Column::make('tole')->title('الهيكل'),
-            Column::make('selling_price')->title('سعر البيع'),
-            Column::make('net_gain')->title('الفائدة'),
+            Column::make('buy_price')->title('سعر الشراء'),
+            Column::make('license_plate')->title('لوحة الترقيم'),
+            Column::make('name')->title('السيارة'),
 
         ];
     }

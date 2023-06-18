@@ -114,7 +114,7 @@
     </div>
 
     <div class="container">
-        <div class="card d-inline-block">
+        <div class="card  ">
             <div class="card-header">
                 <div class="row">
                     <div class="col-8">
@@ -135,9 +135,9 @@
 @stop
 
 @section('css')
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/js/app.js'])
 
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="{{ asset('css/admin_custom.css') }}">
 @stop
 @section('plugins.Datatables', true)
 @section('plugins.Toastr', true)
@@ -149,14 +149,14 @@
     <script>
         $(document).on('click', '.edit-btn', function() {
             $('#edit-id').val($(this).data('id'));
-            $('#edit-car-name').val($(this).data('car_name'));
+            $('#edit-car-name').val($(this).data('name'));
             $('#edit-license-plate').val($(this).data('license_plate'));
             $('#edit-buy-price').val($(this).data('buy_price'));
             $('#edit-electricity').val($(this).data('electricity'));
             $('#edit-mechanism').val($(this).data('mechanism'));
             $('#edit-tole').val($(this).data('tole'));
             $('#edit-repair-parts').val($(this).data('repair_parts'));
-            $('#edit-sell-price').val($(this).data('sell_price'));
+            $('#edit-sell-price').val($(this).data('selling_price'));
         });
         $('#edit-form').submit(function(event) {
             event.preventDefault();
