@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\CarsDataTable;
 use App\Models\Car;
+use App\Models\Expense;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -31,6 +32,9 @@ class CarController extends Controller
         $car->selling_price = $request->input('sell_price');
         $car->payment_reciever_id = $request->input('payment_reciever_id');
         $car->save();
+        // Saving data to dashboard 
+        ExpenseController::storeExpenses($request);
+        //
         return ["message" => 'Car saved successfully'];
     }
     public function update(Request $request, Car $car)
