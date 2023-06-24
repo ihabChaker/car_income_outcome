@@ -16,6 +16,7 @@ class CarController extends Controller
     {
         $car = new Car();
         $car->name = $request->input('car_name');
+        $car->car_buyer = $request->input('buyer_name');
         $car->license_plate = $request->input('license_plate');
         $car->buy_price = $request->input('buy_price');
         $car->electricity = $request->input('electricity');
@@ -29,6 +30,7 @@ class CarController extends Controller
     public function update(Request $request, Car $car)
     {
         $car->name = $request->input('car_name');
+        $car->car_buyer = $request->input('buyer_name');
         $car->license_plate = $request->input('license_plate');
         $car->buy_price = $request->input('buy_price');
         $car->electricity = $request->input('electricity');

@@ -10,6 +10,7 @@ class Car extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'car_buyer',
         'license_plate',
         'buy_price',
         'repair_parts',

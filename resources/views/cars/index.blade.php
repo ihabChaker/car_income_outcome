@@ -18,6 +18,10 @@
                             <input type="text" name="car_name" id="edit-car-name" class="form-control">
                         </div>
                         <div class="form-group">
+                            <label for="edit-buyer-name">شكون لي شرا طاكسي</label>
+                            <input type="text" name="buyer_name" id="edit-buyer-name" class="form-control">
+                        </div>
+                        <div class="form-group">
                             <label for="edit-license-plate">لوحة الترقيم</label>
                             <input type="text" name="car_name" id="edit-license-plate" class="form-control">
                         </div>
@@ -69,6 +73,10 @@
                         <div class="form-group">
                             <label for="create-car-name">اسم السيارة</label>
                             <input type="text" name="car_name" id="create-car-name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="create-buyer-name">شكون لي شرا الطاكسي</label>
+                            <input type="text" name="buyer_name" id="create-buyer-name" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="create-license-plate">لوحة الترقيم</label>
@@ -157,11 +165,13 @@
             $('#edit-tole').val($(this).data('tole'));
             $('#edit-repair-parts').val($(this).data('repair_parts'));
             $('#edit-sell-price').val($(this).data('selling_price'));
+            $('#edit-buyer-name').val($(this).data('buyer_name'))
         });
         $('#edit-form').submit(function(event) {
             event.preventDefault();
             let id = $('#edit-id').val();
             let car_name = $('#edit-car-name').val()
+            let buyer_name = $('#edit-buyer-name').val()
             let license_plate = $('#edit-license-plate').val()
             let buy_price = $('#edit-buy-price').val()
             let electricity = $('#edit-electricity').val()
@@ -172,6 +182,7 @@
 
             axios.patch('{{ route('cars.update', ['car' => 0]) }}' + id, {
                     car_name,
+                    buyer_name,
                     license_plate,
                     buy_price,
                     electricity,
@@ -191,6 +202,7 @@
         $('#create-form').submit(function(event) {
             event.preventDefault();
             let car_name = $('#create-car-name').val()
+            let buyer_name = $('#create-buyer-name').val()
             let license_plate = $('#create-license-plate').val()
             let buy_price = $('#create-buy-price').val()
             let sell_price = $('#create-sell-price').val()
@@ -200,6 +212,7 @@
             let repair_parts = $('#create-repair-parts').val()
             axios.post('{{ route('cars.store') }}', {
                     car_name,
+                    buyer_name,
                     license_plate,
                     buy_price,
                     electricity,

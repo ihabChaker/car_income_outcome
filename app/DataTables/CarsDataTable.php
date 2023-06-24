@@ -28,7 +28,7 @@ class CarsDataTable extends DataTable
                 return '<a  class="btn btn-danger delete-record" onClick="sendDeleteRequest(\'' . route('cars.destroy', $data->id) . '\')"><i class="fas fa-trash"></i></a>';
             })
             ->addColumn('update', function ($data) {
-                return '<a href="#" data-toggle="modal" data-target="#edit-modal" data-id="' . $data->id . '" data-name="' . $data->name . '" data-license_plate="' . $data->license_plate . '" data-buy_price="' . $data->buy_price . '"  data-repair_parts="' . $data->repair_parts . '"  data-mechanism="' . $data->mechanism . '" data-tole="' . $data->tole . '" data-electricity="' . $data->electricity . '" data-selling_price="' . $data->selling_price . '" class="btn btn-xs btn-primary edit-btn"><i class="fas fa-pen"></i></a>';
+                return '<a href="#" data-toggle="modal" data-target="#edit-modal" data-id="' . $data->id . '" data-name="' . $data->name . '" data-license_plate="' . $data->license_plate . '" data-buy_price="' . $data->buy_price . '"  data-repair_parts="' . $data->repair_parts . '"  data-mechanism="' . $data->mechanism . '" data-tole="' . $data->tole . '" data-electricity="' . $data->electricity . '" data-buyer_name="' . $data->car_buyer . '"  data-selling_price="' . $data->selling_price . '" class="btn btn-xs btn-primary edit-btn"><i class="fas fa-pen"></i></a>';
             })
 
             ->rawColumns(['delete', 'update',]);
@@ -88,6 +88,7 @@ class CarsDataTable extends DataTable
             Column::make('tole')->title('الهيكل'),
             Column::make('buy_price')->title('سعر الشراء'),
             Column::make('license_plate')->title('لوحة الترقيم'),
+            Column::make('car_buyer')->title('شكون لي شرا الطاكسي'),
             Column::make('name')->title('السيارة'),
 
         ];
