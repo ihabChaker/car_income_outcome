@@ -542,6 +542,85 @@
             });
         })
         $(document).on('click', '.edit-btn', function() {
+            $('#edit_car_buyer_select').val('').trigger('change');
+            $('#edit_repair_parts_buyer_select').val('').trigger('change');
+            $('#edit_tole_buyer_select').val('').trigger('change');
+            $('#edit_mechanism_buyer_select').val('').trigger('change');
+            $('#edit_electricity_buyer_select').val('').trigger('change');
+            $('#edit_payment_reciever_select').val('').trigger('change');
+
+            let option = new Option($(this).data('car_buyer_name'), $(this).data('car_buyer_id'), true, true);
+            $('#edit_car_buyer_select').append(option).trigger('change');
+            $('#edit_car_buyer_select').trigger({
+                type: 'select2:select',
+                params: {
+                    data: {
+                        id: $(this).data('car_buyer_id'),
+                        text: $(this).data('car_buyer_name')
+                    }
+                }
+            });
+            option = new Option($(this).data('repair_parts_buyer_name'), $(this).data('repair_parts_buyer_id'),
+                true, true);
+            $('#edit_repair_parts_buyer_select').append(option).trigger('change');
+            $('#edit_repair_parts_buyer_select').trigger({
+                type: 'select2:select',
+                params: {
+                    data: {
+                        id: $(this).data('repair_parts_buyer_id'),
+                        text: $(this).data('repair_parts_buyer_name')
+                    }
+                }
+            });
+            option = new Option($(this).data('tole_buyer_name'), $(this).data('tole_buyer_id'),
+                true, true);
+            $('#edit_tole_buyer_select').append(option).trigger('change');
+            $('#edit_tole_buyer_select').trigger({
+                type: 'select2:select',
+                params: {
+                    data: {
+                        id: $(this).data('tole_buyer_id'),
+                        text: $(this).data('tole_buyer_name')
+                    }
+                }
+            });
+            option = new Option($(this).data('mechanism_buyer_name'), $(this).data('mechanism_buyer_id'),
+                true, true);
+            $('#edit_mechanism_buyer_select').append(option).trigger('change');
+            $('#edit_mechanism_buyer_select').trigger({
+                type: 'select2:select',
+                params: {
+                    data: {
+                        id: $(this).data('mechanism_buyer_id'),
+                        text: $(this).data('mechanism_buyer_name')
+                    }
+                }
+            });
+            option = new Option($(this).data('electricity_buyer_name'), $(this).data('electricity_buyer_id'),
+                true, true);
+            $('#edit_electricity_buyer_select').append(option).trigger('change');
+            $('#edit_electricity_buyer_select').trigger({
+                type: 'select2:select',
+                params: {
+                    data: {
+                        id: $(this).data('electricity_buyer_id'),
+                        text: $(this).data('electricity_buyer_name')
+                    }
+                }
+            });
+            option = new Option($(this).data('payment_reciever_name'), $(this).data('payment_reciever_id'),
+                true, true);
+            $('#edit_payment_reciever_select').append(option).trigger('change');
+            $('#edit_payment_reciever_select').trigger({
+                type: 'select2:select',
+                params: {
+                    data: {
+                        id: $(this).data('payment_reciever_id'),
+                        text: $(this).data('payment_reciever_name')
+                    }
+                }
+            });
+
             $('#edit-id').val($(this).data('id'));
             $('#edit-car-name').val($(this).data('name'));
             $('#edit-license-plate').val($(this).data('license_plate'));
@@ -551,31 +630,39 @@
             $('#edit-tole').val($(this).data('tole'));
             $('#edit-repair-parts').val($(this).data('repair_parts'));
             $('#edit-sell-price').val($(this).data('selling_price'));
-            $('#edit-buyer-name').val($(this).data('buyer_name'))
         });
         $('#edit-form').submit(function(event) {
             event.preventDefault();
             let id = $('#edit-id').val();
             let car_name = $('#edit-car-name').val()
-            let buyer_name = $('#edit-buyer-name').val()
             let license_plate = $('#edit-license-plate').val()
             let buy_price = $('#edit-buy-price').val()
+            let buyer_id = $('#edit_car_buyer_select').val()
             let electricity = $('#edit-electricity').val()
+            let electricity_buyer_id = $('#edit_electricity_buyer_select').val()
             let mechanism = $('#edit-mechanism').val()
+            let mechanism_buyer_id = $('#edit_mechanism_buyer_select').val()
             let tole = $('#edit-tole').val()
+            let tole_buyer_id = $('#edit_tole_buyer_select').val()
             let repair_parts = $('#edit-repair-parts').val()
-            let sell_price = $('#edit-sell-price').val();
-
+            let repair_parts_buyer_id = $('#edit_repair_parts_buyer_select').val()
+            let sell_price = $('#edit-sell-price').val()
+            let payment_reciever_id = $('#edit_payment_reciever_select').val()
             axios.patch('{{ route('cars.update', ['car' => 0]) }}' + id, {
                     car_name,
-                    buyer_name,
+                    buyer_id,
                     license_plate,
                     buy_price,
                     electricity,
+                    electricity_buyer_id,
                     mechanism,
+                    mechanism_buyer_id,
                     tole,
+                    tole_buyer_id,
                     repair_parts,
-                    sell_price
+                    repair_parts_buyer_id,
+                    sell_price,
+                    payment_reciever_id
                 })
                 .then(function(response) {
                     toastr.success(response.data.message);
@@ -615,8 +702,7 @@
                     repair_parts,
                     repair_parts_buyer_id,
                     sell_price,
-                    payment_reciever_id,
-                    ,
+                    payment_reciever_id
                 })
                 .then(function(response) {
                     toastr.success(response.data.message);

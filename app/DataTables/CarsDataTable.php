@@ -28,7 +28,13 @@ class CarsDataTable extends DataTable
             return '<a  class="btn btn-danger delete-record" onClick="sendDeleteRequest(\'' . route('cars.destroy', $data->id) . '\')"><i class="fas fa-trash"></i></a>';
         })
             ->addColumn('update', function ($data) {
-                return '<a href="#" data-toggle="modal" data-target="#edit-modal" data-id="' . $data->id . '" data-name="' . $data->name . '" data-license_plate="' . $data->license_plate . '" data-buy_price="' . $data->buy_price . '"  data-repair_parts="' . $data->repair_parts . '"  data-mechanism="' . $data->mechanism . '" data-tole="' . $data->tole . '" data-electricity="' . $data->electricity . '" data-buyer_name="' . $data->car_buyer . '"  data-selling_price="' . $data->selling_price . '" class="btn btn-xs btn-primary edit-btn"><i class="fas fa-pen"></i></a>';
+                return '<a href="#" data-toggle="modal" data-target="#edit-modal" data-id="' . $data->id . '" data-name="' . $data->name . '" data-license_plate="' . $data->license_plate . '" data-buy_price="' . $data->buy_price . '"  data-repair_parts="' . $data->repair_parts . '"  data-mechanism="' . $data->mechanism . '" data-tole="' . $data->tole . '" data-electricity="' . $data->electricity . '"  data-selling_price="' . $data->selling_price . '" data-car_buyer_name="' . $data->carBuyer->name . '" data-car_buyer_id="' . $data->carBuyer->id . '"
+                data-electricity_buyer_name="' . $data->electricityBuyer->name . '" data-electricity_buyer_id="' . $data->electricityBuyer->id . '"
+                data-tole_buyer_name="' . $data->toleBuyer->name . '" data-tole_buyer_id="' . $data->toleBuyer->id . '"
+                data-mechanism_buyer_name="' . $data->mechanismBuyer->name . '" data-mechanism_buyer_id="' . $data->mechanismBuyer->id . '"
+                data-repair_parts_buyer_name="' . $data->repairPartsBuyer->name . '" data-repair_parts_buyer_id="' . $data->repairPartsBuyer->id . '"
+                data-payment_reciever_name="' . $data->paymentReciever->name . '" data-payment_reciever_id="' . $data->paymentReciever->id . '"
+                class="btn btn-xs btn-primary edit-btn"><i class="fas fa-pen"></i></a>';
             })
 
             ->rawColumns(['delete', 'update',]);
