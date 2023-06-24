@@ -291,6 +291,11 @@ return [
 
     'menu' => [
         [
+            'text' => 'العمال',
+            'icon_color' => 'cyan',
+            'url' => 'employees',
+        ],
+        [
             'text' => 'السيارات',
             'icon_color' => 'cyan',
             'url' => 'cars',

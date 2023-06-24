@@ -39,7 +39,10 @@ class CarsDataTable extends DataTable
      */
     public function query(Car $model): QueryBuilder
     {
-        return $model->with(['carBuyer', 'paymentReciever', 'electricityBuyer', 'toleBuyer', 'mechanismBuyer', 'repairPartsBuyer'])->newQuery();
+        return $model
+            ->with(['carBuyer', 'paymentReciever', 'electricityBuyer', 'toleBuyer', 'mechanismBuyer', 'repairPartsBuyer'])
+            ->select('cars.*', 'cars.id AS car_id')
+            ->newQuery();
     }
 
     /**
