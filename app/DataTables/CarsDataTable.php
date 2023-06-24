@@ -23,10 +23,10 @@ class CarsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('net_gain', function ($data) {
-                return $data->selling_price - ($data->buy_price + $data->electricity + $data->mechanism + $data->tole);
+                return $data->selling_price - ($data->buy_price + $data->electricity + $data->mechanism + $data->tole + $data->repair_parts);
             })->addColumn('delete', function ($data) {
-                return '<a  class="btn btn-danger delete-record" onClick="sendDeleteRequest(\'' . route('cars.destroy', $data->id) . '\')"><i class="fas fa-trash"></i></a>';
-            })
+            return '<a  class="btn btn-danger delete-record" onClick="sendDeleteRequest(\'' . route('cars.destroy', $data->id) . '\')"><i class="fas fa-trash"></i></a>';
+        })
             ->addColumn('update', function ($data) {
                 return '<a href="#" data-toggle="modal" data-target="#edit-modal" data-id="' . $data->id . '" data-name="' . $data->name . '" data-license_plate="' . $data->license_plate . '" data-buy_price="' . $data->buy_price . '"  data-repair_parts="' . $data->repair_parts . '"  data-mechanism="' . $data->mechanism . '" data-tole="' . $data->tole . '" data-electricity="' . $data->electricity . '" data-buyer_name="' . $data->car_buyer . '"  data-selling_price="' . $data->selling_price . '" class="btn btn-xs btn-primary edit-btn"><i class="fas fa-pen"></i></a>';
             })
@@ -39,7 +39,7 @@ class CarsDataTable extends DataTable
      */
     public function query(Car $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->with(['carBuyer', 'paymentReciever', 'electricityBuyer', 'toleBuyer', 'mechanismBuyer', 'repairPartsBuyer'])->newQuery();
     }
 
     /**
@@ -81,14 +81,19 @@ class CarsDataTable extends DataTable
                 ->width(60)
                 ->addClass('text-center'),
             Column::make('net_gain')->title('الفائدة'),
+            Column::make('repair_parts_buyer.name')->title('لي حكم الدراهم'),
             Column::make('selling_price')->title('سعر البيع'),
+            Column::make('repair_parts_buyer.name')->title('لي صرف على قطع الغيار'),
             Column::make('repair_parts')->title('قطع الغيار'),
+            Column::make('mechanism_buyer.name')->title('لي صرف على ميكانيك'),
             Column::make('mechanism')->title('ميكانيك'),
+            Column::make('electricity_buyer.name')->title('لي صرف على تريسيتي'),
             Column::make('electricity')->title('كهرباء'),
+            Column::make('tole_buyer.name')->title('لي صرف على لاطول'),
             Column::make('tole')->title('الهيكل'),
             Column::make('buy_price')->title('سعر الشراء'),
+            Column::make('car_buyer.name')->title(' لي شرا الطاكسي'),
             Column::make('license_plate')->title('لوحة الترقيم'),
-            Column::make('car_buyer')->title('شكون لي شرا الطاكسي'),
             Column::make('name')->title('السيارة'),
 
         ];
