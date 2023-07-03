@@ -48,4 +48,12 @@ class Car extends Model
     {
         return $this->belongsTo(Employee::class, 'payment_reciever_id');
     }
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class, 'car_id')->connection('mysql1');
+    }
+    public function cashIns()
+    {
+        return $this->hasMany(CashIn::class, 'car_id')->connection('mysql1');
+    }
 }

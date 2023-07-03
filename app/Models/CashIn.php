@@ -13,4 +13,8 @@ class CashIn extends Model
         'name',
         'reciever_id',
     ];
+    public function reciever()
+    {
+        return $this->belongsTo(Employee::class, 'reciever_id');
+    }
 }

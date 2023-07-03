@@ -34,6 +34,8 @@ class CarController extends Controller
         $car->save();
         // Saving data to dashboard 
         ExpenseController::storeExpenses($request);
+        CashInController::storeCashIn($request);
+
         //
         return ["message" => 'Car saved successfully'];
     }
