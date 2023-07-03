@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Expense extends Model
 {
     use HasFactory;
+    protected $connection = 'mysql1';
+
     protected $fillable = ['name', 'amount', 'car_id', 'spended_by'];
     public function spender()
     {

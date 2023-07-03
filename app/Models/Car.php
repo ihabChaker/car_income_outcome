@@ -50,10 +50,10 @@ class Car extends Model
     }
     public function expenses()
     {
-        return $this->hasMany(Expense::class, 'car_id')->connection('mysql1');
+        return $this->setConnection('mysql1')->hasMany(Expense::class, 'car_id');
     }
-    public function cashIns()
+    public function cashIn()
     {
-        return $this->hasMany(CashIn::class, 'car_id')->connection('mysql1');
+        return $this->setConnection('mysql1')->hasOne(CashIn::class, 'car_id');
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class CashInController extends Controller
 {
-    static public function storeCashIn(Request $request)
+    static public function storeCashIn(Request $request, $car_id)
     {
         $cash_in = new CashIn();
         $car_name = $request->input('car_name');
@@ -15,7 +15,8 @@ class CashInController extends Controller
         $cash_in->name = $name;
         $cash_in->amount = $request->input('sell_price');
         $cash_in->reciever_id = $request->input('payment_reciever_id');
-        $cash_in->setConnection('mysql1');
+        $cash_in->car_id = $car_id;
+        // $cash_in->setConnection('mysql1');
         $cash_in->save();
     }
 }
