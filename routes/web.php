@@ -16,10 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::resource('cars', CarController::class);
-Route::resource('employees', EmployeeController::class);
-Route::get('test', function () {
-    return Car::find(5)->cashIn;
-});
+
 Route::get('employees-select-data', [EmployeeController::class, 'generateSelectOptions'])->name('select.employees');
 
 Route::get('/', function () {

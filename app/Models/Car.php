@@ -26,27 +26,27 @@ class Car extends Model
     ];
     public function carBuyer()
     {
-        return $this->belongsTo(Employee::class, 'car_buyer_id');
+        return $this->setConnection('mysql1')->belongsTo(Employee::class, 'car_buyer_id');
     }
     public function repairPartsBuyer()
     {
-        return $this->belongsTo(Employee::class, 'repair_parts_buyer_id');
+        return $this->setConnection('mysql1')->belongsTo(Employee::class, 'repair_parts_buyer_id');
     }
     public function electricityBuyer()
     {
-        return $this->belongsTo(Employee::class, 'electricity_buyer_id');
+        return $this->setConnection('mysql1')->belongsTo(Employee::class, 'electricity_buyer_id');
     }
     public function mechanismBuyer()
     {
-        return $this->belongsTo(Employee::class, 'mechanism_buyer_id');
+        return $this->setConnection('mysql1')->belongsTo(Employee::class, 'mechanism_buyer_id');
     }
     public function toleBuyer()
     {
-        return $this->belongsTo(Employee::class, 'tole_buyer_id');
+        return $this->setConnection('mysql1')->belongsTo(Employee::class, 'tole_buyer_id');
     }
     public function paymentReciever()
     {
-        return $this->belongsTo(Employee::class, 'payment_reciever_id');
+        return $this->setConnection('mysql1')->belongsTo(Employee::class, 'payment_reciever_id');
     }
     public function expenses()
     {

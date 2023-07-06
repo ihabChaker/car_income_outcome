@@ -9,7 +9,7 @@ class EmployeesService
 {
     public static function generateSelectOptions($search)
     {
-        $options = DB::table('employees')
+        $options = DB::connection('mysql1')->table('employees')
             ->where(function ($query) use ($search) {
                 if ($search) {
                     $query->where('name', 'like', '%' . $search . '%');

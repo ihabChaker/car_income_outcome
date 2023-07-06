@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
-    protected $fillable = ['name'];
+    protected $connection = 'mysql1';
+    protected $table = 'employees';
 }
