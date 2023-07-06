@@ -23,10 +23,36 @@ class CarsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('net_gain', function ($data) {
-                return $data->selling_price - ($data->buy_price + $data->electricity + $data->mechanism + $data->tole + $data->repair_parts);
-            })->addColumn('delete', function ($data) {
-            return '<a  class="btn btn-danger delete-record" onClick="sendDeleteRequest(\'' . route('cars.destroy', $data->id) . '\')"><i class="fas fa-trash"></i></a>';
-        })
+                $net_gain = $data->selling_price - ($data->buy_price + $data->electricity + $data->mechanism + $data->tole + $data->repair_parts);
+                return number_format($net_gain, 0, ',');
+            })
+            ->addColumn(
+                'buy_price',
+                fn($data) => number_format($data->buy_price, 0, ',')
+            )
+            ->addColumn(
+                'selling_price',
+                fn($data) => number_format($data->selling_price, 0, ',')
+            )
+            ->addColumn(
+                'repair_parts',
+                fn($data) => number_format($data->repair_parts, 0, ',')
+            )
+            ->addColumn(
+                'mechanism',
+                fn($data) => number_format($data->mechanism, 0, ',')
+            )
+            ->addColumn(
+                'tole',
+                fn($data) => number_format($data->tole, 0, ',')
+            )
+            ->addColumn(
+                'electricity',
+                fn($data) => number_format($data->electricity, 0, ',')
+            )
+            ->addColumn('delete', function ($data) {
+                return '<a  class="btn btn-danger delete-record" onClick="sendDeleteRequest(\'' . route('cars.destroy', $data->id) . '\')"><i class="fas fa-trash"></i></a>';
+            })
             ->addColumn('update', function ($data) {
                 return '<a href="#" data-toggle="modal" data-target="#edit-modal" data-id="' . $data->id . '" data-name="' . $data->name . '" data-license_plate="' . $data->license_plate . '" data-buy_price="' . $data->buy_price . '"  data-repair_parts="' . $data->repair_parts . '"  data-mechanism="' . $data->mechanism . '" data-tole="' . $data->tole . '" data-electricity="' . $data->electricity . '"  data-selling_price="' . $data->selling_price . '" data-car_buyer_name="' . $data->carBuyer->name . '" data-car_buyer_id="' . $data->carBuyer->id . '"
                 data-electricity_buyer_name="' . $data->electricityBuyer->name . '" data-electricity_buyer_id="' . $data->electricityBuyer->id . '"
