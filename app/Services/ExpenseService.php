@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Services;
 
 use App\Models\Expense;
 
-class ExpenseController extends Controller
+class ExpenseService
 {
     static public function storeExpenses($data, $car_id)
     {
