@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Services;
 
 use App\Models\Expense;
 
-class ExpenseController extends Controller
+class ExpenseService
 {
     static public function storeExpenses($data, $car_id)
     {
-        $car_name = $data['car_name'];
+        $car_name = $data['name'];
         $name = $car_name . ' طاكسيات: شرى طاكسي';
         self::storeExpense($name, $data['buy_price'], $data['buyer_id'], $car_id);
 

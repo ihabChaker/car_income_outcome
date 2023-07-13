@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\CarsDataTable;
+use App\Http\Requests\StoreCarRequest;
 use App\Models\Car;
-use App\Models\Expense;
+use App\Services\CarService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class CarController extends Controller
 {
@@ -14,17 +14,15 @@ class CarController extends Controller
     {
         return $carsDataTable->render('cars.index');
     }
-    public function store(Request $request)
-    {
-        $car = new Car();
-        $storedCar = $this->setCarData($car, $request);
-        // Saving data to dashboard 
-        ExpenseController::storeExpenses($request, $storedCar->id);
-        CashInController::storeCashIn($request, $storedCar->id);
 
-        //
-        return ["message" => 'Car saved successfully'];
+    public function store(StoreCarRequest $request, CarService $carService)
+    {
+        $validatedData = $request->validated();
+        $message = $carService->store($validatedData);
+
+        return $message;
     }
+
     public function update(Request $request, Car $car)
     {
         $updatedCar = $this->setCarData($car, $request);
