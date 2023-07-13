@@ -17,8 +17,8 @@ class CarController extends Controller
 
     public function store(StoreCarRequest $request, CarService $carService)
     {
-        $validatedData = $request->validated();
-        $message = $carService->store($validatedData);
+        $validated_data = $request->validated();
+        $message = $carService->store($validated_data);
 
         return $message;
     }
