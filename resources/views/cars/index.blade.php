@@ -641,7 +641,7 @@
             let car_name = $('#edit-car-name').val()
             let license_plate = $('#edit-license-plate').val()
             let buy_price = parseFormattedNumber($('#edit-buy-price').val())
-            let buyer_id = $('#edit_car_buyer_select').val()
+            let car_buyer_id = $('#edit_car_buyer_select').val()
             let electricity = parseFormattedNumber($('#edit-electricity').val())
             let electricity_buyer_id = $('#edit_electricity_buyer_select').val()
             let mechanism = parseFormattedNumber($('#edit-mechanism').val())
@@ -650,11 +650,11 @@
             let tole_buyer_id = $('#edit_tole_buyer_select').val()
             let repair_parts = parseFormattedNumber($('#edit-repair-parts').val())
             let repair_parts_buyer_id = $('#edit_repair_parts_buyer_select').val()
-            let sell_price = parseFormattedNumber($('#edit-sell-price').val())
+            let selling_price = parseFormattedNumber($('#edit-sell-price').val())
             let payment_reciever_id = $('#edit_payment_reciever_select').val()
             axios.patch('{{ route('cars.update', ['car' => 0]) }}' + id, {
                     car_name,
-                    buyer_id,
+                    car_buyer_id,
                     license_plate,
                     buy_price,
                     electricity,
@@ -665,7 +665,7 @@
                     tole_buyer_id,
                     repair_parts,
                     repair_parts_buyer_id,
-                    sell_price,
+                    selling_price,
                     payment_reciever_id
                 })
                 .then(function(response) {
@@ -681,7 +681,7 @@
             let car_name = $('#create-car-name').val()
             let license_plate = $('#create-license-plate').val()
             let buy_price = parseFormattedNumber($('#create-buy-price').val())
-            let buyer_id = $('#create_car_buyer_select').val()
+            let car_buyer_id = $('#create_car_buyer_select').val()
             let electricity = parseFormattedNumber($('#create-electricity').val())
             let electricity_buyer_id = $('#create_electricity_buyer_select').val()
             let mechanism = parseFormattedNumber($('#create-mechanism').val())
@@ -690,11 +690,11 @@
             let tole_buyer_id = $('#create_tole_buyer_select').val()
             let repair_parts = parseFormattedNumber($('#create-repair-parts').val())
             let repair_parts_buyer_id = $('#create_repair_parts_buyer_select').val()
-            let sell_price = parseFormattedNumber($('#create-sell-price').val())
+            let selling_price = parseFormattedNumber($('#create-sell-price').val())
             let payment_reciever_id = $('#create_payment_reciever_select').val()
             axios.post('{{ route('cars.store') }}', {
                     car_name,
-                    buyer_id,
+                    car_buyer_id,
                     license_plate,
                     buy_price,
                     electricity,
@@ -705,7 +705,7 @@
                     tole_buyer_id,
                     repair_parts,
                     repair_parts_buyer_id,
-                    sell_price,
+                    selling_price,
                     payment_reciever_id
                 })
                 .then(function(response) {

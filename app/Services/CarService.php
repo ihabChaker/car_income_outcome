@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Http\Services\ExpenseService;
 use App\Models\Car;
 
 class CarService
@@ -11,7 +10,7 @@ class CarService
     {
         $car = Car::create([
             'name' => $data['name'],
-            'car_buyer_id' => $data['buyer_id'],
+            'car_buyer_id' => $data['car_buyer_id'],
             'license_plate' => $data['license_plate'],
             'buy_price' => $data['buy_price'],
             'electricity' => $data['electricity'],
@@ -22,14 +21,14 @@ class CarService
             'tole_buyer_id' => $data['tole_buyer_id'],
             'repair_parts' => $data['repair_parts'],
             'repair_parts_buyer_id' => $data['repair_parts_buyer_id'],
-            'selling_price' => $data['sell_price'],
+            'selling_price' => $data['selling_price'],
             'payment_reciever_id' => $data['payment_reciever_id'],
         ]);
 
         $car->cashIn()->create([
             'name' => $car->name . ' طاكسيات: سلاك تع طاكسي',
-            'amount' => $data('sell_price'),
-            'reciever_id' => $data('payment_reciever_id'),
+            'amount' => $data['selling_price'],
+            'reciever_id' => $data['payment_reciever_id'],
             'car_id' => $car->id,
         ]);
 
@@ -42,7 +41,7 @@ class CarService
     {
         $car->update([
             'name' => $data['name'],
-            'car_buyer_id' => $data['buyer_id'],
+            'car_buyer_id' => $data['car_buyer_id'],
             'license_plate' => $data['license_plate'],
             'buy_price' => $data['buy_price'],
             'electricity' => $data['electricity'],
@@ -53,19 +52,29 @@ class CarService
             'tole_buyer_id' => $data['tole_buyer_id'],
             'repair_parts' => $data['repair_parts'],
             'repair_parts_buyer_id' => $data['repair_parts_buyer_id'],
-            'selling_price' => $data['sell_price'],
+            'selling_price' => $data['selling_price'],
             'payment_reciever_id' => $data['payment_reciever_id'],
         ]);
 
-        $car->cashIn()->create([
+        $car->cashIn()->update([
             'name' => $car->name . ' طاكسيات: سلاك تع طاكسي',
-            'amount' => $data('sell_price'),
-            'reciever_id' => $data('payment_reciever_id'),
-            'car_id' => $car->id,
+            'amount' => $data['selling_price'],
+            'reciever_id' => $data['payment_reciever_id'],
         ]);
 
+        $car->expenses()->delete();
         ExpenseService::storeExpenses($data, $car->id);
 
         return ["message" => 'تم الحفظ بنجاح'];
     }
+
+    public function delete($car)
+    {
+        $car->delete();
+        $car->expenses()->delete();
+        $car->cashIn()->delete();
+
+        return ["message" => 'تم الحذف بنجاح'];
+    }
+
 }

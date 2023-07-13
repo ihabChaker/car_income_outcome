@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Services;
 
 use App\Models\Expense;
 
@@ -10,7 +10,7 @@ class ExpenseService
     {
         $car_name = $data['name'];
         $name = $car_name . ' طاكسيات: شرى طاكسي';
-        self::storeExpense($name, $data['buy_price'], $data['buyer_id'], $car_id);
+        self::storeExpense($name, $data['buy_price'], $data['car_buyer_id'], $car_id);
 
         $name = $car_name . ' طاكسيات: ترسيتي تع';
         self::storeExpense($name, $data['electricity'], $data['electricity_buyer_id'], $car_id);

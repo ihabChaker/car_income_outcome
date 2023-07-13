@@ -10,9 +10,9 @@ class Expense extends Model
     use HasFactory;
     protected $connection = 'mysql1';
 
-    protected $fillable = ['name', 'amount', 'car_id', 'spended_by'];
+    protected $fillable = ['name', 'amount', 'car_id', 'spender_id'];
     public function spender()
     {
-        return $this->belongsTo(Employee::class, 'spended_by');
+        return $this->belongsTo(Employee::class, 'spender_id');
     }
 }
