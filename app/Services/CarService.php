@@ -25,15 +25,6 @@ class CarService
             'payment_reciever_id' => $data['payment_reciever_id'],
         ]);
 
-        $car->cashIn()->create([
-            'name' => $car->name . ' طاكسيات: سلاك تع طاكسي',
-            'amount' => $data['selling_price'],
-            'reciever_id' => $data['payment_reciever_id'],
-            'car_id' => $car->id,
-        ]);
-
-        ExpenseService::storeExpenses($data, $car->id);
-
         return ["message" => 'تم الحفظ بنجاح'];
     }
 
@@ -62,17 +53,12 @@ class CarService
             'reciever_id' => $data['payment_reciever_id'],
         ]);
 
-        $car->expenses()->delete();
-        ExpenseService::storeExpenses($data, $car->id);
-
         return ["message" => 'تم الحفظ بنجاح'];
     }
 
     public function delete($car)
     {
         $car->delete();
-        $car->expenses()->delete();
-        $car->cashIn()->delete();
 
         return ["message" => 'تم الحذف بنجاح'];
     }

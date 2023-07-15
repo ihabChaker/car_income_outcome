@@ -54,12 +54,12 @@ class CarsDataTable extends DataTable
                 return '<a  class="btn btn-danger delete-record" onClick="sendDeleteRequest(\'' . route('cars.destroy', $data->id) . '\')"><i class="fas fa-trash"></i></a>';
             })
             ->addColumn('update', function ($data) {
-                return '<a href="#" data-toggle="modal" data-target="#edit-modal" data-id="' . $data->id . '" data-name="' . $data->name . '" data-license_plate="' . $data->license_plate . '" data-buy_price="' . $data->buy_price . '"  data-repair_parts="' . $data->repair_parts . '"  data-mechanism="' . $data->mechanism . '" data-tole="' . $data->tole . '" data-electricity="' . $data->electricity . '"  data-selling_price="' . $data->selling_price . '" data-car_buyer_name="' . $data->carBuyer->name . '" data-car_buyer_id="' . $data->carBuyer->id . '"
-                data-electricity_buyer_name="' . $data->electricityBuyer->name . '" data-electricity_buyer_id="' . $data->electricityBuyer->id . '"
-                data-tole_buyer_name="' . $data->toleBuyer->name . '" data-tole_buyer_id="' . $data->toleBuyer->id . '"
-                data-mechanism_buyer_name="' . $data->mechanismBuyer->name . '" data-mechanism_buyer_id="' . $data->mechanismBuyer->id . '"
-                data-repair_parts_buyer_name="' . $data->repairPartsBuyer->name . '" data-repair_parts_buyer_id="' . $data->repairPartsBuyer->id . '"
-                data-payment_reciever_name="' . $data->paymentReciever->name . '" data-payment_reciever_id="' . $data->paymentReciever->id . '"
+                return '<a href="#" data-toggle="modal" data-target="#edit-modal" data-id="' . $data->id . '" data-name="' . $data->name . '" data-license_plate="' . $data->license_plate . '" data-buy_price="' . $data->buy_price . '"  data-repair_parts="' . $data->repair_parts . '"  data-mechanism="' . $data->mechanism . '" data-tole="' . $data->tole . '" data-electricity="' . $data->electricity . '"  data-selling_price="' . $data->selling_price . '" data-car_buyer_name="' . $data->carbuyer->name . '" data-car_buyer_id="' . $data->carbuyer->id . '"
+                data-electricity_buyer_name="' . $data->electricitybuyer->name . '" data-electricity_buyer_id="' . $data->electricitybuyer->id . '"
+                data-tole_buyer_name="' . $data->tolebuyer->name . '" data-tole_buyer_id="' . $data->tolebuyer->id . '"
+                data-mechanism_buyer_name="' . $data->mechanismbuyer->name . '" data-mechanism_buyer_id="' . $data->mechanismbuyer->id . '"
+                data-repair_parts_buyer_name="' . $data->repairpartsbuyer->name . '" data-repair_parts_buyer_id="' . $data->repairpartsbuyer->id . '"
+                data-payment_reciever_name="' . $data->paymentreciever->name . '" data-payment_reciever_id="' . $data->paymentreciever->id . '"
                 class="btn btn-xs btn-primary edit-btn"><i class="fas fa-pen"></i></a>';
             })
 
@@ -71,8 +71,7 @@ class CarsDataTable extends DataTable
      */
     public function query(Car $model): QueryBuilder
     {
-        return $model
-            ->with(['carBuyer', 'paymentReciever', 'electricityBuyer', 'toleBuyer', 'mechanismBuyer', 'repairPartsBuyer'])
+        return Car::with(['carbuyer', 'paymentreciever', 'electricitybuyer', 'tolebuyer', 'mechanismbuyer', 'repairpartsbuyer'])
             ->select('cars.*', 'cars.id AS car_id')
             ->newQuery();
     }
@@ -89,6 +88,14 @@ class CarsDataTable extends DataTable
             //->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()
+            ->createdRow('
+            function(row, data, dataIndex) {
+                $(row).find("td").addClass("text-center");
+             }')
+            ->headerCallback('
+            function(thead, data, start, end, display) {
+                $(thead).find("th").addClass("text-center");
+            }')
             ->buttons([
                 Button::make('excel'),
                 Button::make('csv'),
@@ -96,7 +103,23 @@ class CarsDataTable extends DataTable
                 Button::make('print'),
                 Button::make('reset'),
                 Button::make('reload')
-            ]);
+            ])
+            ->initComplete('function () {
+                this.api().columns().every(function () {
+                var column = this;
+                if (  ["تعديل", "حذف"].includes(column.header().innerText))
+                    return;
+                var input = document.createElement("input");
+                var br = document.createElement("br");
+                $(br).appendTo($(column.header()))
+                $(input).appendTo($(column.header()))
+                .on("change", function () {
+                    column.search($(this).val(), false, false, true).draw();
+                }); });
+
+                $("html, body").animate({ scrollLeft: $(document).width() }, 0);
+                window.scrollTo($(document).width(), 0);
+            }');
     }
 
     /**
@@ -116,18 +139,18 @@ class CarsDataTable extends DataTable
                 ->width(60)
                 ->addClass('text-center'),
             Column::make('net_gain')->title('الفائدة'),
-            Column::make('repair_parts_buyer.name')->title('لي حكم الدراهم'),
+            Column::make('paymentreciever.name')->title('لي حكم الدراهم'),
             Column::make('selling_price')->title('سعر البيع'),
-            Column::make('repair_parts_buyer.name')->title('لي صرف على قطع الغيار'),
+            Column::make('repairpartsbuyer.name')->title('لي صرف على قطع الغيار'),
             Column::make('repair_parts')->title('قطع الغيار'),
-            Column::make('mechanism_buyer.name')->title('لي صرف على ميكانيك'),
+            Column::make('mechanismbuyer.name')->title('لي صرف على ميكانيك'),
             Column::make('mechanism')->title('ميكانيك'),
-            Column::make('electricity_buyer.name')->title('لي صرف على تريسيتي'),
+            Column::make('electricitybuyer.name')->title('لي صرف على تريسيتي'),
             Column::make('electricity')->title('كهرباء'),
-            Column::make('tole_buyer.name')->title('لي صرف على لاطول'),
+            Column::make('tolebuyer.name')->title('لي صرف على لاطول'),
             Column::make('tole')->title('الهيكل'),
             Column::make('buy_price')->title('سعر الشراء'),
-            Column::make('car_buyer.name')->title(' لي شرا الطاكسي'),
+            Column::make('carbuyer.name')->title(' لي شرا الطاكسي'),
             Column::make('license_plate')->title('لوحة الترقيم'),
             Column::make('name')->title('السيارة'),
 

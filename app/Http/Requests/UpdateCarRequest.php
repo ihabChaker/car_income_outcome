@@ -38,4 +38,23 @@ class UpdateCarRequest extends FormRequest
             'payment_reciever_id' => 'required|exists:mysql1.employees,id',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'car_buyer_id' => ' لي شرا الطاكسي',
+            'license_plate' => 'لوحة الترقيم',
+            'buy_price' => 'سعرالشراء',
+            'electricity' => 'الكهرباء',
+            'electricity_buyer_id' => ' لي صرف على الكهرباء',
+            'mechanism' => 'الميكانيك',
+            'mechanism_buyer_id' => ' لي صرف على الميكانيك',
+            'tole' => 'الهيكل',
+            'tole_buyer_id' => ' لي صرف على الهيكل',
+            'repair_parts' => 'قطع الغيار',
+            'repair_parts_buyer_id' => ' لي شرا قطع الغيار',
+            'selling_price' => 'سعر البيع',
+            'payment_reciever_id' => ' لي قبض الدراهم',
+        ];
+    }
 }

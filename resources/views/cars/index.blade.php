@@ -638,7 +638,7 @@
         $('#edit-form').submit(function(event) {
             event.preventDefault();
             let id = $('#edit-id').val();
-            let car_name = $('#edit-car-name').val()
+            let name = $('#edit-car-name').val()
             let license_plate = $('#edit-license-plate').val()
             let buy_price = parseFormattedNumber($('#edit-buy-price').val())
             let car_buyer_id = $('#edit_car_buyer_select').val()
@@ -653,7 +653,7 @@
             let selling_price = parseFormattedNumber($('#edit-sell-price').val())
             let payment_reciever_id = $('#edit_payment_reciever_select').val()
             axios.patch('{{ route('cars.update', ['car' => 0]) }}' + id, {
-                    car_name,
+                    name,
                     car_buyer_id,
                     license_plate,
                     buy_price,
@@ -678,7 +678,7 @@
         });
         $('#create-form').submit(function(event) {
             event.preventDefault();
-            let car_name = $('#create-car-name').val()
+            let name = $('#create-car-name').val()
             let license_plate = $('#create-license-plate').val()
             let buy_price = parseFormattedNumber($('#create-buy-price').val())
             let car_buyer_id = $('#create_car_buyer_select').val()
@@ -693,7 +693,7 @@
             let selling_price = parseFormattedNumber($('#create-sell-price').val())
             let payment_reciever_id = $('#create_payment_reciever_select').val()
             axios.post('{{ route('cars.store') }}', {
-                    car_name,
+                    name,
                     car_buyer_id,
                     license_plate,
                     buy_price,
