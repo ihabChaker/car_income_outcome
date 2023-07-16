@@ -30,25 +30,61 @@ class CarsDataTable extends DataTable
                 'buy_price',
                 fn($data) => number_format($data->buy_price, 0, ',')
             )
+            ->filterColumn(
+                'buy_price',
+                function ($query, $input) {
+                    $query->where('buy_price', '=', $input);
+                }
+            )
             ->addColumn(
                 'selling_price',
                 fn($data) => number_format($data->selling_price, 0, ',')
+            )
+            ->filterColumn(
+                'selling_price',
+                function ($query, $input) {
+                    $query->where('selling_price', '=', $input);
+                }
             )
             ->addColumn(
                 'repair_parts',
                 fn($data) => number_format($data->repair_parts, 0, ',')
             )
+            ->filterColumn(
+                'repair_parts',
+                function ($query, $input) {
+                    $query->where('repair_parts', '=', $input);
+                }
+            )
             ->addColumn(
                 'mechanism',
                 fn($data) => number_format($data->mechanism, 0, ',')
+            )
+            ->filterColumn(
+                'mechanism',
+                function ($query, $input) {
+                    $query->where('mechanism', '=', $input);
+                }
             )
             ->addColumn(
                 'tole',
                 fn($data) => number_format($data->tole, 0, ',')
             )
+            ->filterColumn(
+                'tole',
+                function ($query, $input) {
+                    $query->where('tole', '=', $input);
+                }
+            )
             ->addColumn(
                 'electricity',
                 fn($data) => number_format($data->electricity, 0, ',')
+            )
+            ->filterColumn(
+                'electricity',
+                function ($query, $input) {
+                    $query->where('electricity', '=', $input);
+                }
             )
             ->addColumn('delete', function ($data) {
                 return '<a  class="btn btn-danger delete-record" onClick="sendDeleteRequest(\'' . route('cars.destroy', $data->id) . '\')"><i class="fas fa-trash"></i></a>';
