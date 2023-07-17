@@ -58,7 +58,7 @@ function formatNumber(input) {
         return;
     }
     let value = parseInt(input.value.replace(/,/g, ''));
-    let formattedValue = value.toLocaleString();
+    let formattedValue = value.toLocaleString('en');
     input.value = formattedValue;
 }
 

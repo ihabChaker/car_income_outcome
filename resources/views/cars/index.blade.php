@@ -628,12 +628,12 @@
             $('#edit-id').val($(this).data('id'));
             $('#edit-car-name').val($(this).data('name'));
             $('#edit-license-plate').val($(this).data('license_plate'));
-            $('#edit-buy-price').val($(this).data('buy_price').toLocaleString());
-            $('#edit-electricity').val($(this).data('electricity').toLocaleString());
-            $('#edit-mechanism').val($(this).data('mechanism').toLocaleString());
-            $('#edit-tole').val($(this).data('tole').toLocaleString());
-            $('#edit-repair-parts').val($(this).data('repair_parts').toLocaleString());
-            $('#edit-sell-price').val($(this).data('selling_price').toLocaleString());
+            $('#edit-buy-price').val($(this).data('buy_price').toLocaleString('en'));
+            $('#edit-electricity').val($(this).data('electricity').toLocaleString('en'));
+            $('#edit-mechanism').val($(this).data('mechanism').toLocaleString('en'));
+            $('#edit-tole').val($(this).data('tole').toLocaleString('en'));
+            $('#edit-repair-parts').val($(this).data('repair_parts').toLocaleString('en'));
+            $('#edit-sell-price').val($(this).data('selling_price').toLocaleString('en'));
         });
         $('#edit-form').submit(function(event) {
             event.preventDefault();
